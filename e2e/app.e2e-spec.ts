@@ -1,14 +1,13 @@
 import { AppPage } from './app.po';
 
 describe('hearthsoundboard App', () => {
-  let page: AppPage;
+  it('should display the app title');
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
+  it('should display a table of cards');
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
-  });
+  it('should display card name and card class');
+
+  it('should filter by the card name');
+
+  it('should play card audio: summon, attack and death');
 });
