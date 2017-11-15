@@ -7,7 +7,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-  displayedColumns = ['id', 'name', 'progress', 'color'];
+  displayedColumns = ['name', 'class', 'media'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
