@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ICard } from './data.model';
 import { CardService } from './card.service';
@@ -8,15 +8,19 @@ import { CardService } from './card.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  displayedColumns = ['name', 'class', 'media'];
-  dataSource: MatTableDataSource<ICard>;
+export class AppComponent implements OnInit {
+  public displayedColumns = ['name', 'class', 'media'];
+  public dataSource: MatTableDataSource<ICard>;
+
+  public error: boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private cardService: CardService) {
-    // Assign the data to the data source for the table to render
-    // this.dataSource = new MatTableDataSource(users);
+  constructor(private cardService: CardService) {}
+
+  ngOnInit() {
+    this.error = false;
+    this.dataSource = null;
 
     this.cardService
       .getCards()
@@ -25,16 +29,17 @@ export class AppComponent {
           this.dataSource = new MatTableDataSource(cards);
 
           setTimeout(() => this.dataSource.paginator = this.paginator);
-        }
+        },
+        err => this.error = true
       );
   }
 
-  applyFilter(filterValue: string): void {
+  public applyFilter(filterValue: string): void {
     // Remove whitespace and datasource defaults to lowercase matches
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onPlay(url: string): void {
+  public onPlay(url: string): void {
     const audio = new Audio(url);
     audio.play().then(() => audio.remove());
   }

@@ -6,9 +6,15 @@
 </mat-toolbar>
 
 <ng-template #loaderOrError>
-  <div class="spinner">
+  <div class="spinner"
+       *ngIf="!error">
     <div class="double-bounce1"></div>
     <div class="double-bounce2"></div>
+  </div>
+
+  <div *ngIf="error">
+    Failed to download cards database.
+    <button mat-button (click)="ngOnInit()">Try again?</button>
   </div>
 </ng-template>
 
@@ -19,7 +25,7 @@
     <mat-form-field>
       <input matInput id="search-query"
              (keyup)="applyFilter($event.target.value)"
-             placeholder="Tirion Fordring">
+             placeholder="Card or class name">
     </mat-form-field>
   </div>
 
