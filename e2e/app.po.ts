@@ -69,4 +69,16 @@ export class AppTable {
   static async getRow(index: number) {
     return {name: await element.all(by.css('app-root mat-cell.mat-column-name')).get(index).getText()};
   }
+
+  static playSummonEffect(index: number) {
+    return element.all(by.css('app-root .summon-effect')).click();
+  }
+
+  static playAttackEffect(index: number) {
+    return element.all(by.css('app-root .attack-death')).click();
+  }
+
+  static playDeathEffect(index: number) {
+    return element.all(by.css('app-root .death-effect')).click();
+  }
 }

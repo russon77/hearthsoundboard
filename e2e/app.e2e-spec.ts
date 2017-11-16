@@ -30,5 +30,13 @@ describe('hearthsoundboard App', () => {
     return await expect(actualCard).toEqual(expectedCard);
   });
 
-  xit('should play card audio: summon, attack and death');
+  it('should play card audio: summon, attack and death', async () => {
+    await AppPage.navigateTo();
+
+    await AppTable.search('tirion fordring');
+
+    await AppTable.playSummonEffect(0);
+    await AppTable.playAttackEffect(0);
+    return await AppTable.playDeathEffect(0);
+  });
 });

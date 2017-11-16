@@ -6,7 +6,10 @@
 </mat-toolbar>
 
 <ng-template #loaderOrError>
-  I am the loader or error component!
+  <div class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
 </ng-template>
 
 <div class="example-container mat-elevation-z8"
@@ -25,7 +28,7 @@
     <!-- Class Column -->
     <ng-container matColumnDef="class">
       <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.class}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.cardClass}} </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
@@ -37,7 +40,11 @@
     <!-- Media Column -->
     <ng-container matColumnDef="media">
       <mat-header-cell *matHeaderCellDef> Media </mat-header-cell>
-      <mat-cell *matCellDef="let row"> <mat-icon>audiotrack</mat-icon> </mat-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-button class="summon-effect" (click)="onPlay(row.audio.summon)"> <mat-icon>audiotrack</mat-icon> Summon </button>
+        <button mat-button class="attack-effect" (click)="onPlay(row.audio.attack)"> <mat-icon>audiotrack</mat-icon> Attack </button>
+        <button mat-button class="death-effect" (click)="onPlay(row.audio.death)"> <mat-icon>audiotrack</mat-icon> Death </button>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
