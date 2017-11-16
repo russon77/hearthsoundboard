@@ -28,7 +28,23 @@
     <!-- Class Column -->
     <ng-container matColumnDef="class">
       <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.cardClass}} </mat-cell>
+      <mat-cell *matCellDef="let row">
+        <ng-container [ngSwitch]="row.cardClass">
+          <span *ngSwitchCase=" 'MAGE' " class="icon-mage"></span>
+          <span *ngSwitchCase=" 'PRIEST' " class="icon-priest"></span>
+          <span *ngSwitchCase=" 'WARLOCK' " class="icon-warlock"></span>
+          <span *ngSwitchCase=" 'ROGUE' " class="icon-rogue"></span>
+          <span *ngSwitchCase=" 'DRUID' " class="icon-druid"></span>
+          <span *ngSwitchCase=" 'PALADIN' " class="icon-paladin"></span>
+          <span *ngSwitchCase=" 'SHAMAN' " class="icon-shaman"></span>
+          <span *ngSwitchCase=" 'HUNTER' " class="icon-hunter"></span>
+          <span *ngSwitchCase=" 'WARRIOR' " class="icon-warrior"></span>
+
+          <span *ngSwitchDefault class="icon-neutral"></span>
+        </ng-container>
+
+        {{row.cardClass}}
+      </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
