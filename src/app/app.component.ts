@@ -29,9 +29,14 @@ export class AppComponent {
       );
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     // Remove whitespace and datasource defaults to lowercase matches
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onPlay(url: string): void {
+    const audio = new Audio(url);
+    audio.play().then(() => audio.remove());
   }
 }
 
