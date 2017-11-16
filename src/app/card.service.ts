@@ -9,6 +9,6 @@ export class CardService {
   constructor(private http: HttpClient) {}
 
   getCards(): Observable<ICard[]> {
-    return this.http.get<ICard[]>('/assets/cards.db.json');
+    return this.http.get<ICard[]>('./assets/cards.db.json');
   }
 }
