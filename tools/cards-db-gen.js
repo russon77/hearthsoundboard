@@ -38,6 +38,4 @@ request('https://api.hearthstonejson.com/v1/latest/enUS/cards.collectible.json',
   }
 
   Promise.all(promises).then(results => fs.writeFileSync('cards.db.json', JSON.stringify(body), 'utf8'));
-
-  // Promise.all(body.map(card => findAudio(card))).then(results => fs.writeFileSync('cards.db.json', JSON.stringify(body), 'utf8'));
 });
