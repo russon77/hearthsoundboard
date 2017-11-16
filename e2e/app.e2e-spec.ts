@@ -1,13 +1,34 @@
-import { AppPage } from './app.po';
+import { AppHeader, AppPage, AppTable } from './app.po';
 
 describe('hearthsoundboard App', () => {
-  it('should display the app title');
+  it('should display the app title', async () => {
+    await AppPage.navigateTo();
 
-  it('should display a table of cards');
+    return await expect(AppHeader.getBrandText()).toEqual('HearthSoundboard');
+  });
 
-  it('should display card name and card class');
+  it('should display a table of cards', async () => {
+    await AppPage.navigateTo();
 
-  it('should filter by the card name');
+    const expectedHeaders = ['Name', 'Class', 'Media'].sort();
+    let actualHeaders = await AppTable.getColumnNames();
+    actualHeaders = actualHeaders.sort();
 
-  it('should play card audio: summon, attack and death');
+    return await expect(actualHeaders).toEqual(expectedHeaders);
+  });
+
+  it('should filter by the card name', async () => {
+    await AppPage.navigateTo();
+
+    const expectedCard = {name: 'Tirion Fordring'};
+
+    await AppTable.search('tirion fordring');
+
+    await expect(AppTable.rowCount()).toEqual(1);
+
+    const actualCard = await AppTable.getRow(0);
+    return await expect(actualCard).toEqual(expectedCard);
+  });
+
+  xit('should play card audio: summon, attack and death');
 });

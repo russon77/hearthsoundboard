@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppMaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { HttpClientModule } from '@angular/common/http';
+import { CardService } from './card.service';
 
 @NgModule({
   declarations: [
@@ -16,9 +17,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     BrowserModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    CardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

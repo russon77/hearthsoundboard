@@ -1,35 +1,42 @@
 <mat-toolbar color="primary"
              fxLayout="row"
              fxLayoutAlign="space-between center">
-  <span>HearthSoundboard</span>
+  <span id="brand">HearthSoundboard</span>
   <span class="mat-caption">Just for minions!</span>
 </mat-toolbar>
 
-<div class="example-header">
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Tirion Fordring">
-  </mat-form-field>
-</div>
+<ng-template #loaderOrError>
+  I am the loader or error component!
+</ng-template>
 
-<div class="example-container mat-elevation-z8">
+<div class="example-container mat-elevation-z8"
+     *ngIf="dataSource; else loaderOrError">
+
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput id="search-query"
+             (keyup)="applyFilter($event.target.value)"
+             placeholder="Tirion Fordring">
+    </mat-form-field>
+  </div>
 
   <mat-table [dataSource]="dataSource" matSort>
 
     <!-- Class Column -->
     <ng-container matColumnDef="class">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Class </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.class}} </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
     </ng-container>
 
     <!-- Media Column -->
     <ng-container matColumnDef="media">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Color </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Media </mat-header-cell>
       <mat-cell *matCellDef="let row"> <mat-icon>audiotrack</mat-icon> </mat-cell>
     </ng-container>
 

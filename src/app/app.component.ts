@@ -1,67 +1,37 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { ICard } from './data.model';
+import { CardService } from './card.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   displayedColumns = ['name', 'class', 'media'];
-  dataSource: MatTableDataSource<UserData>;
+  dataSource: MatTableDataSource<ICard>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
-    // Create 100 users
-    const users: UserData[] = [];
-    for (let i = 1; i <= 100; i++) { users.push(createNewUser(i)); }
-
+  constructor(private cardService: CardService) {
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
-  }
+    // this.dataSource = new MatTableDataSource(users);
 
-  /**
-   * Set the paginator and sort after the view init since this component will
-   * be able to query its view for the initialized paginator and sort.
-   */
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.cardService
+      .getCards()
+      .subscribe(
+        cards => {
+          this.dataSource = new MatTableDataSource(cards);
+
+          setTimeout(() => this.dataSource.paginator = this.paginator);
+        }
+      );
   }
 
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
+    // Remove whitespace and datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  };
-}
-
-/** Constants used to fill up our data base. */
-const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
-  'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-}
